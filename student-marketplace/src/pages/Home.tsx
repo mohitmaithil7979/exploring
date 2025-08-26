@@ -1,7 +1,5 @@
 import { useMemo, useState } from 'react'
 import ListingCard from '../components/ListingCard'
-import SearchBar, { type SearchFilters } from '../components/SearchBar'
-import CategorySidebar from '../components/CategorySidebar'
 
 const mockListings = [
   { id: '1', imageUrl: 'https://picsum.photos/seed/a/600/400', title: 'iPad Air 64GB', price: 250, sellerName: 'Alex' },
@@ -10,28 +8,25 @@ const mockListings = [
   { id: '4', imageUrl: 'https://picsum.photos/seed/d/600/400', title: 'Gaming Chair', price: 120, sellerName: 'Sam' },
 ]
 
-const categories = ['all', 'electronics', 'books', 'furniture', 'fashion']
-
 function Home() {
-  const [filters, setFilters] = useState<SearchFilters>({ q: '', category: 'all', minPrice: '', maxPrice: '', condition: 'any' })
-  const [activeCategory, setActiveCategory] = useState<string>('all')
+  const [query, setQuery] = useState('')
 
   const filtered = useMemo(() => {
-    return mockListings.filter((l) => {
-      const matchQ = l.title.toLowerCase().includes(filters.q.toLowerCase())
-      const matchCategory = activeCategory === 'all' ? true : activeCategory === 'books' ? l.title.toLowerCase().includes('book') : true
-      const matchMin = filters.minPrice === '' || l.price >= Number(filters.minPrice)
-      const matchMax = filters.maxPrice === '' || l.price <= Number(filters.maxPrice)
-      return matchQ && matchCategory && matchMin && matchMax
-    })
-  }, [filters, activeCategory])
+    const q = query.toLowerCase().trim()
+    if (!q) return mockListings
+    return mockListings.filter((l) => l.title.toLowerCase().includes(q))
+  }, [query])
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-6">
-      <div className="md:col-span-2">
-        <SearchBar onChange={setFilters} />
+    <div className="mx-auto max-w-6xl px-4 py-8">
+      <div className="max-w-2xl mx-auto mb-6">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search items..."
+          className="w-full border rounded-md px-4 py-3"
+        />
       </div>
-      <CategorySidebar categories={categories} active={activeCategory} onSelect={setActiveCategory} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((l) => (
           <ListingCard key={l.id} {...l} />
