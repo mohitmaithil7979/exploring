@@ -14,7 +14,7 @@ import { AuthProvider } from './context/AuthContext'
 function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-neutral-50 text-neutral-900">
         <Navbar />
         <main className="flex-1">
           <Routes>

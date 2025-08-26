@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ChatBubble from '../components/ChatBubble'
+import { SendHorizonal } from 'lucide-react'
 
 function Chat() {
   const [messages, setMessages] = useState([
@@ -16,9 +17,9 @@ function Chat() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
-      <div className="border rounded-lg overflow-hidden">
-        <div className="border-b p-3 bg-gray-50">
-          <div className="text-sm text-gray-600">Chat about:</div>
+      <div className="border rounded-xl overflow-hidden">
+        <div className="border-b p-3 bg-neutral-100">
+          <div className="text-sm text-neutral-600">Chat about:</div>
           <div className="font-medium">iPad Air 64GB · $250</div>
         </div>
         <div className="p-3 space-y-2 h-[60vh] overflow-y-auto bg-white">
@@ -26,9 +27,11 @@ function Chat() {
             <ChatBubble key={idx} sender={m.sender} text={m.text} time={m.time} />
           ))}
         </div>
-        <div className="border-t p-2 flex gap-2">
-          <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Type a message" className="flex-1 border rounded-md px-3 py-2" />
-          <button onClick={send} className="rounded-md bg-black text-white px-4 py-2">Send</button>
+        <div className="border-t p-2 flex gap-2 bg-neutral-50">
+          <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Type a message" className="flex-1 border rounded-lg px-3 py-2 bg-white" />
+          <button onClick={send} className="grid place-items-center h-10 w-10 rounded-lg bg-neutral-900 text-white">
+            <SendHorizonal size={18} />
+          </button>
         </div>
       </div>
     </div>

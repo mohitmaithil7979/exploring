@@ -10,8 +10,8 @@ export type ListingCardProps = {
 
 function ListingCard({ id, imageUrl, title, price, sellerName }: ListingCardProps) {
   return (
-    <Link to={`/listing/${id}`} className="group border rounded-lg overflow-hidden hover:shadow-md transition">
-      <div className="aspect-[4/3] bg-gray-100 overflow-hidden">
+    <Link to={`/listing/${id}`} className="group border rounded-xl overflow-hidden hover:shadow-sm transition bg-white">
+      <div className="aspect-[4/3] bg-neutral-100 overflow-hidden">
         <img src={imageUrl} alt={title} className="h-full w-full object-cover group-hover:scale-105 transition" />
       </div>
       <div className="p-3">
@@ -19,8 +19,7 @@ function ListingCard({ id, imageUrl, title, price, sellerName }: ListingCardProp
           <h3 className="font-medium line-clamp-1">{title}</h3>
           <span className="font-semibold">${price}</span>
         </div>
-        <p className="text-xs text-gray-500 mt-1">Seller: {sellerName}</p>
-        <p className="text-xs text-blue-600 mt-2">View Details →</p>
+        <p className="text-xs text-neutral-500 mt-1">Seller: {sellerName}</p>
       </div>
     </Link>
   )
